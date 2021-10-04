@@ -1,15 +1,15 @@
-const width = 28;
-const grid = document.querySelector('.grid');
-const scoreDisplay = document.getElementById('score');
-let squares = [];
-let score = 0;
+const width = 28
+const grid = document.querySelector('.grid')
+const scoreDisplay = document.getElementById('score')
+let squares = []
+let score = 0
 
 
-  // 0 - pac-dots
-  // 1 - wall
-  // 2 - ghost-lair
-  // 3 - power-pellet
-  // 4 - empty
+  0 - pac-dots
+  1 - wall
+  2 - ghost-lair
+  3 - power-pellet
+  4 - empty
 const layout = [ 
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
     1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,
@@ -39,59 +39,59 @@ const layout = [
     1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,
     1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1  
-];
+]
 
 //creating board
 
 function createBoard() {
   for(let i = 0; i < layout.length; i++) {
     //creating a square
-    const square = document.createElement('div');
+    const square = document.createElement('div')
 
     //putting square in board
-    grid.appendChild(square);
+    grid.appendChild(square)
 
     //put square into squares array
-    squares.push(square);
+    squares.push(square)
 
     if(layout[i] === 0) {
-      squares[i].classList.add('pac-dot');
+      squares[i].classList.add('pac-dot')
     } else if(layout[i] === 1) {
-      squares[i].classList.add('wall');
+      squares[i].classList.add('wall')
     }  else if(layout[i] === 2) {
-      squares[i].classList.add('ghost-lair');
+      squares[i].classList.add('ghost-lair')
     } else if(layout[i] === 3) {
-      squares[i].classList.add('power-pellet');
+      squares[i].classList.add('power-pellet')
     }// else if(layout[i] === 4) {
-    //   squares[i].classList.add('');
+    //   squares[i].classList.add('')
     // }
 
   }
 }
 
-createBoard();
+createBoard()
 
 //Pacman starting position
-let pacmanCurrentIndex =  490;
+let pacmanCurrentIndex =  490
 
-squares[pacmanCurrentIndex].classList.add('pacman');
+squares[pacmanCurrentIndex].classList.add('pacman')
 
 function control(e) {
-  squares[pacmanCurrentIndex].classList.remove('pacman');
+  squares[pacmanCurrentIndex].classList.remove('pacman')
 
   switch(e.keyCode) { //repl doesn't seem to support event.key
     case 40:
-    console.log("pressed down");
+    console.log("pressed down")
     if(
       !squares[pacmanCurrentIndex + width].classList.contains('ghost-lair') &&
       !squares[pacmanCurrentIndex + width].classList.contains('wall') &&
       pacmanCurrentIndex + width < width * width
       ) 
-      pacmanCurrentIndex += width;
-    break;
+      pacmanCurrentIndex += width
+    break
 
     case 39:
-    console.log("pressed right");
+    console.log("pressed right")
     if(
       !squares[pacmanCurrentIndex + 1].classList.contains('ghost-lair') &&
       !squares[pacmanCurrentIndex + 1].classList.contains('wall') &&
@@ -101,41 +101,57 @@ function control(e) {
 
     if(pacmanCurrentIndex === 391)
       pacmanCurrentIndex = 364
-    break;
+    break
 
     case 38:
-    console.log("pressed up");
+    console.log("pressed up")
     if(
       !squares[pacmanCurrentIndex - width].classList.contains('ghost-lair') &&
       !squares[pacmanCurrentIndex - width].classList.contains('wall') &&
       pacmanCurrentIndex - width >= 0
       )
-      pacmanCurrentIndex -= width;
-    break;
+      pacmanCurrentIndex -= width
+    break
 
     case 37: 
-    console.log("pressed Left");
+    console.log("pressed Left")
     if(
       !squares[pacmanCurrentIndex - 1].classList.contains('ghost-lair') &&
       !squares[pacmanCurrentIndex - 1].classList.contains('wall') &&
       pacmanCurrentIndex % width !== 0
       ) 
-      pacmanCurrentIndex -= 1;
+      pacmanCurrentIndex -= 1
 
     if(pacmanCurrentIndex === 364)
       pacmanCurrentIndex = 391
-    break;
+    break
   }
-  squares[pacmanCurrentIndex].classList.add('pacman');
-  pacDotEaten();
+  squares[pacmanCurrentIndex].classList.add('pacman')
+  pacDotEaten()
 }
 document.addEventListener('keyup', control)
 
 
 function pacDotEaten() {
     if(squares[pacmanCurrentIndex].classList.contains('pac-dot')) {
-      square[pacmanCurrentIndex].classList.remove('pac-dot');
-      score++;
-      scoreDisplay.innerHTML = score;
+      squares[pacmanCurrentIndex].classList.remove('pac-dot')
+      score++
+      scoreDisplay.innerHTML = score
     }
 }
+
+
+class Ghost {
+  constructor(className, startIndex, speed) {
+    this.className = className
+    this.startIndex = startIndex
+    this.speed = speed
+  }
+}
+
+ghosts = [
+  new Ghost('blinky', 348, 250),
+  new Ghost('pinky', 376, 400),
+  new Ghost('inky', 351, 300),
+  new Ghost('clyde', 379, 500)
+]
