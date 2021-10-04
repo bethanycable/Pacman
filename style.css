@@ -36,7 +36,8 @@ body {
 
 } */
 
-.pacamn {
-  background-color: yellow;
+.pacman {
+  background-color: orange;
   border-radius: 7.5px;
+  border: none;
 }
