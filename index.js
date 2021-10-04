@@ -53,6 +53,18 @@ function createBoard() {
     //put square into squares array
     squares.push(square);
 
+    if(layout[i] === 0) {
+      squares[i].classList.add('pac-dot');
+    } else if(layout[i] === 1) {
+      squares[i].classList.add('wall');
+    }//  else if(layout[i] === 2) {
+    //   squares[i].classList.add('');
+    /*}*/ else if(layout[i] === 3) {
+      squares[i].classList.add('power-pellet');
+    }// else if(layout[i] === 4) {
+    //   squares[i].classList.add('');
+    // }
+
   }
 }
 
