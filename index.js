@@ -78,7 +78,6 @@ function control(e) {
 
   switch(e.keyCode) { //repl doesn't seem to support event.key
     case 40:
-    console.log("pressed down")
     if(
       !squares[pacmanCurrentIndex + width].classList.contains('ghost-lair') &&
       !squares[pacmanCurrentIndex + width].classList.contains('wall') &&
@@ -88,7 +87,6 @@ function control(e) {
     break
 
     case 39:
-    console.log("pressed right")
     if(
       !squares[pacmanCurrentIndex + 1].classList.contains('ghost-lair') &&
       !squares[pacmanCurrentIndex + 1].classList.contains('wall') &&
@@ -101,7 +99,6 @@ function control(e) {
     break
 
     case 38:
-    console.log("pressed up")
     if(
       !squares[pacmanCurrentIndex - width].classList.contains('ghost-lair') &&
       !squares[pacmanCurrentIndex - width].classList.contains('wall') &&
@@ -111,7 +108,6 @@ function control(e) {
     break
 
     case 37: 
-    console.log("pressed Left")
     if(
       !squares[pacmanCurrentIndex - 1].classList.contains('ghost-lair') &&
       !squares[pacmanCurrentIndex - 1].classList.contains('wall') &&
@@ -186,7 +182,6 @@ ghosts.forEach(ghost => {
 ghosts.forEach(ghost => moveGhost(ghost))
 
 function moveGhost(ghost) {
-  console.log('moved ghost')
   const directions = [-1, +1, -width, +width]
   let direction = directions[Math.floor(Math.random() * directions.length)]
   console.log(direction)
@@ -256,7 +251,6 @@ function checkForWin() {
     //tell the user they have won
     scoreDisplay.innerHTML = "YOU WON!"
   }
-
 }
 
 
