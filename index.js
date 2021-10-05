@@ -144,7 +144,7 @@ function powerPelletsEaten() {
     squares[pacmanCurrentIndex].classList.remove('power-pellet')
     //add a score of 10 
     score += 10
-
+    scoreDisplay.innerHTML = score;
     //change each of the four ghosts to isScared
     ghosts.forEach(ghost => ghost.isScared = true)
     
@@ -209,9 +209,45 @@ function moveGhost(ghost) {
         direction = directions[Math.floor(Math.random() * directions.length)]
     }
 
+    //if ghost is currently scared
     if(ghost.isScared) {
-      squares[currentIndex].classList.add('scared-ghost')
+      squares[ghost.currentIndex].classList.add('scared-ghost')
     }
 
+    //if the ghost is currently scared AND pacman is on it
+    if(ghost.isScared && squares[ghost.currentIndex].classList.contains('pacman')) {
+      //remove classnames - ghost.classname, 'ghost', 'scared-ghost'
+      squares[ghost.currentIndex].classList.remove(ghost.className, 'ghost', 'scared-ghost')
+      //change ghosts currentindex to its startIndex
+      ghost.currentIndex = ghost.startIndex
+      //add a score of 100 points
+      score += 100
+      scoreDisplay.innerHTML = score
+      //re-add classnames of ghost.className and 'ghost' to the ghsots new position
+      squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
+    }
+    checkForGameOver()
   }, ghost.speed )
 }
+
+//Check for a game over 
+function checkForGameOver() {
+  //if the square pacmane is in contains a ghost AND square does not contain scared ghost
+  if(
+    squares[pacmanCurrentIndex].classList.contains('ghost') && 
+    !squares[pacmanCurrentIndex].classList.contains('scared-ghost')
+    ) {
+    //for each ghost - we need to stop it moving
+    ghosts.forEach(ghost => clearInterval(ghost.timerId))
+    //remove addeventlistener from out control function
+    document.removeEventListener('keyup', control)
+    //tell the user the game is over
+    scoreDisplay.innerHTML = "You LOSE!"
+    }
+
+}
+
+
+
+
+
