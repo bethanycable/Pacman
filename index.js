@@ -244,10 +244,19 @@ function checkForGameOver() {
     //tell the user the game is over
     scoreDisplay.innerHTML = "You LOSE!"
     }
-
 }
 
+//checking for a win
+function checkForWin() {
+  if(score === 274) {
+    //stop each ghost moving
+    ghosts.forEach(ghost => clearInterval(ghost.timerId))
+    //remove eventListener for the control function
+    document.removeEventListener('keyup', control)
+    //tell the user they have won
+    scoreDisplay.innerHTML = "YOU WON!"
+  }
 
-
+}
 
 
