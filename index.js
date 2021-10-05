@@ -5,11 +5,11 @@ let squares = []
 let score = 0
 
 
-  0 - pac-dots
-  1 - wall
-  2 - ghost-lair
-  3 - power-pellet
-  4 - empty
+// 0 - pac-dots
+// 1 - wall
+// 2 - ghost-lair
+// 3 - power-pellet
+// 4 - empty
 const layout = [ 
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
     1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,
@@ -146,12 +146,38 @@ class Ghost {
     this.className = className
     this.startIndex = startIndex
     this.speed = speed
+    this.currentIndex = startIndex
+    this.isScared = false
+    this.timerId = NaN
   }
 }
 
-ghosts = [
+const ghosts = [
   new Ghost('blinky', 348, 250),
   new Ghost('pinky', 376, 400),
   new Ghost('inky', 351, 300),
   new Ghost('clyde', 379, 500)
 ]
+
+//insert ghosts into grid
+ghosts.forEach(ghost => squares[ghost.startIndex].classList.add(ghost.className))
+
+//move the ghosts
+ghosts.forEach(ghost => moveGhost(ghost))
+
+function moveGhost(ghost) {
+  console.log('moved ghost')
+  const directions = [-1, +1, -width, +width]
+  let direction = directions[Math.floor(Math.random() * directions.length)]
+  console.log(direction)
+
+  ghost.timerId = setInterval(function() {
+    //remove ghost class
+    squares[ghost.currentIndex].classList.remove(ghost.className)
+    //add direction to current Index
+    ghost.currentIndex += direction;
+    //add ghost class
+    squares[ghost.currentIndex].classList.add(ghost.className)
+
+  }, ghost.speed )
+}
