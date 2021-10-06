@@ -213,13 +213,13 @@ function moveGhost(ghost) {
         } 
 
         //create a Y coordinate function 
-        function isXCoordCloser() {
-          if((ghostNewX - pacmanX) > (ghostX - pacmanX)) {
+        function isYCoordCloser() {
+          if((ghostNewY - pacmanY) > (ghostY - pacmanY)) {
               return true
           } else {
             return false
           }
-        } 
+        }
 
 
         // function checkForGhostLair() {
