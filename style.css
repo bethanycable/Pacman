@@ -4,17 +4,22 @@ body {
   padding: 10;
 }
 
+.game-title {
+  color: #c6c95b;
+  
+}
+
 .grid {
   display: flex;
   flex-wrap: wrap;
-  height: 420px;
-  width: 420px;
+  height: 560px;
+  width: 560px;
   border: solid black;
 }
 
 .grid div {
-  height: 15px;
-  width: 15px;
+  height: 20px;
+  width: 20px;
 }
 
 .pac-dot {
@@ -37,13 +42,14 @@ body {
 }
 
 .pacman {
-  background-color: orange;
+  background-color: #c6c95b;
   border-radius: 7.5px;
   border: none;
 }
 
 .blinky {
   background-color: red;
+  /* border-top-left-radius: 3px; */
   border: none;
 }
 

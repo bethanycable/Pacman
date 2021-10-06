@@ -42,7 +42,6 @@ const layout = [
 ]
 
 //creating board
-
 function createBoard() {
   for(let i = 0; i < layout.length; i++) {
     //creating a square
@@ -65,7 +64,6 @@ function createBoard() {
     }
   }
 }
-
 createBoard()
 
 //Pacman starting position
@@ -122,6 +120,8 @@ function control(e) {
   squares[pacmanCurrentIndex].classList.add('pacman')
   pacDotEaten()
   powerPelletsEaten()
+  checkForWin()
+  checkForGameOver()
 }
 document.addEventListener('keyup', control)
 
@@ -153,6 +153,9 @@ function unScareGhosts() {
   ghosts.forEach(ghost => ghost.isScared = false)
 }
 
+function getCoordinates (index) {
+  return [index % width, Math.floor(index / width)]
+}
 
 class Ghost {
   constructor(className, startIndex, speed) {
@@ -184,7 +187,6 @@ ghosts.forEach(ghost => moveGhost(ghost))
 function moveGhost(ghost) {
   const directions = [-1, +1, -width, +width]
   let direction = directions[Math.floor(Math.random() * directions.length)]
-  console.log(direction)
 
   ghost.timerId = setInterval(function() {
     //if the next square does not contain a wall and does not contain a ghost
@@ -195,11 +197,53 @@ function moveGhost(ghost) {
          //remove ghost class
         squares[ghost.currentIndex].classList.remove(ghost.className)
         squares[ghost.currentIndex].classList.remove('ghost', 'scared-ghost')
-        //add direction to current Index
-        ghost.currentIndex += direction;
-        //add ghost class
-        squares[ghost.currentIndex].classList.add(ghost.className)
-        squares[ghost.currentIndex].classList.add('ghost')
+
+        //create variables to hold coordinates for checks
+        const[ghostX, ghostY] = getCoordinates(ghost.currentIndex)
+        const[pacmanX, pacmanY] = getCoordinates(pacmanCurrentIndex)
+        const[ghostNewX, ghostNewY] = getCoordinates(ghost.currentIndex + direction)
+
+        //create an x coordinate function
+        function isXCoordCloser() {
+          if((ghostNewX - pacmanX) > (ghostX - pacmanX)) {
+              return true
+          } else {
+            return false
+          }
+        } 
+
+        //create a Y coordinate function 
+        function isXCoordCloser() {
+          if((ghostNewX - pacmanX) > (ghostX - pacmanX)) {
+              return true
+          } else {
+            return false
+          }
+        } 
+
+
+        // function checkForGhostLair() {
+        //   if(!squares[ghost.currentIndex + direction].classList.contains('ghost-lair')) {
+        //     direction = directions[Math.floor(Math.random() * directions.length)]
+        //   } else {
+
+        //   }
+        // }
+
+        //checking the coordinates of the ghosts against pacman
+        if(isXCoordCloser() || isYCoordCloser() ) {
+          //add direction to current Index
+          ghost.currentIndex += direction;
+          //add ghost class
+          squares[ghost.currentIndex].classList.add(ghost.className)
+          squares[ghost.currentIndex].classList.add('ghost')
+        } else {
+          //add ghost class
+          squares[ghost.currentIndex].classList.add(ghost.className)
+          squares[ghost.currentIndex].classList.add('ghost')
+          direction = directions[Math.floor(Math.random() * directions.length)]
+        }
+
       } else {
         direction = directions[Math.floor(Math.random() * directions.length)]
     }
@@ -222,6 +266,7 @@ function moveGhost(ghost) {
       squares[ghost.currentIndex].classList.add(ghost.className, 'ghost')
     }
     checkForGameOver()
+
   }, ghost.speed )
 }
 
@@ -243,7 +288,7 @@ function checkForGameOver() {
 
 //checking for a win
 function checkForWin() {
-  if(score === 274) {
+  if(score === 100) {
     //stop each ghost moving
     ghosts.forEach(ghost => clearInterval(ghost.timerId))
     //remove eventListener for the control function
