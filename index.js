@@ -205,7 +205,7 @@ function moveGhost(ghost) {
 
         //create an x coordinate function
         function isXCoordCloser() {
-          if((ghostNewX - pacmanX) > (ghostX - pacmanX)) {
+          if(Math.abs(ghostNewX - pacmanX) < Math.abs(ghostX - pacmanX)) {
               return true
           } else {
             return false
@@ -214,38 +214,35 @@ function moveGhost(ghost) {
 
         //create a Y coordinate function 
         function isYCoordCloser() {
-          if((ghostNewY - pacmanY) > (ghostY - pacmanY)) {
+          if(Math.abs(ghostNewY - pacmanY) < Math.abs(ghostY - pacmanY)) {
               return true
           } else {
             return false
           }
         }
 
-
-        // function checkForGhostLair() {
         //   if(!squares[ghost.currentIndex + direction].classList.contains('ghost-lair')) {
         //     direction = directions[Math.floor(Math.random() * directions.length)]
         //   } else {
-
         //   }
-        // }
 
         //checking the coordinates of the ghosts against pacman
         if(isXCoordCloser() || isYCoordCloser() ) {
           //add direction to current Index
           ghost.currentIndex += direction;
+
           //add ghost class
           squares[ghost.currentIndex].classList.add(ghost.className)
-          squares[ghost.currentIndex].classList.add('ghost')
+          squares[ghost.currentIndex].classList.add('ghost') 
         } else {
+          direction = directions[Math.floor(Math.random() * directions.length)]
           //add ghost class
           squares[ghost.currentIndex].classList.add(ghost.className)
           squares[ghost.currentIndex].classList.add('ghost')
-          direction = directions[Math.floor(Math.random() * directions.length)]
         }
 
-      } else {
-        direction = directions[Math.floor(Math.random() * directions.length)]
+    } else {
+      direction = directions[Math.floor(Math.random() * directions.length)]
     }
 
     //if ghost is currently scared
