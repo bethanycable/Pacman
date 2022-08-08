@@ -1,4 +1,4 @@
-html, 
+/* html,  */
 body {
 /*   margin: 10; */
 /*   padding: 10; */
@@ -11,12 +11,12 @@ body {
 }
 
 .game-title {
-  color: #FAFA00;
-  text-shadow: 2px 2px #000;
+  color: #dcd43c;
+  text-shadow: -2px 2px 0 #000;
   background-color: #fff;
   border: solid #0a0061 2px;
   padding: 0.25em 1.5em;
-  opacity: 0..8;
+  opacity: 0.8;
 }
 
 .score {
