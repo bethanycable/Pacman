@@ -3,9 +3,6 @@ const grid = document.querySelector('.grid')
 const scoreDisplay = document.getElementById('score')
 let squares = []
 let score = 0
-let pacDots = 0
-let powerPellets = 0
-
 // 0 - pac-dots
 // 1 - wall
 // 2 - ghost-lair
@@ -56,19 +53,16 @@ function createBoard() {
 
     if(layout[i] === 0) {
       squares[i].classList.add('pac-dot')
-      pacDots++
     } else if(layout[i] === 1) {
       squares[i].classList.add('wall')
     }  else if(layout[i] === 2) {
       squares[i].classList.add('ghost-lair')
     } else if(layout[i] === 3) {
       squares[i].classList.add('power-pellet')
-      powerPellets++
     }
   }
 }
 createBoard()
-console.log(pacDots, powerPellets)
 //Pacman starting position
 let pacmanCurrentIndex =  434
 
@@ -292,8 +286,7 @@ function checkForGameOver() {
 
 //checking for a win
 function checkForWin() {
-  let finalCount = pacDots + powerPellets
-  if(score === finalCount) {
+  if(score === 284) {
     //stop each ghost moving
     ghosts.forEach(ghost => clearInterval(ghost.timerId))
     //remove eventListener for the control function
