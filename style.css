@@ -1,27 +1,26 @@
 html, 
 body {
-  margin: 10;
-  padding: 10;
+/*   margin: 10; */
+/*   padding: 10; */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #0a0061;
-  /* border: solid #ffff00; */
+  background-color: rgba(10, 0, 97, 0.2);
 }
 
 .game-title {
-  color: #ffff00;
-  background-color: #bf8f26;
-  border: solid #2121de 2px;
+  color: #FAFA00;
+  text-shadow: 2px 2px #000;
+  background-color: #fff;
+  border: solid #0a0061 2px;
   padding: 0.25em 1.5em;
-  opacity: 0.6;
+  opacity: 0..8;
 }
 
 .score {
-  color: #00ff00;
-  /* border: solid red 1px; */
+  color: #0a0061;
 }
 
 .grid {
@@ -29,7 +28,8 @@ body {
   flex-wrap: wrap;
   height: 588px;
   width: 588px;
-  border: solid #00ff00;
+  border: solid #0a0061;
+  background-color: #0a0061;
 }
 
 .grid div {
@@ -38,27 +38,25 @@ body {
 }
 
 .pac-dot {
-  background-color: #dea185;
+  background-color: #fff;
   border: 6px solid #0a0061;
-  border-radius: 30px;
   box-sizing: border-box;
 }
 
 .wall {
-  background-color: blue;
-  /* border-radius: 5px;  */
+  background-color: #4034AD;
 }
 
 .power-pellet {
   background-color: #00ff00;
   box-sizing: border-box;
-  border: 2px solid #0a0061;
+/*   border: 1px solid #0a0061; */
   opacity: 0.7;
   border-radius: 25px;
 }
 
 .ghost-lair {
-  background-color: paleturquoise;
+  background-color: #0a0061;
 }
 
 .pacman {
@@ -69,7 +67,6 @@ body {
 
 .blinky {
   background-color: red;
-  /* border-radius: ; */
   border: none;
 }
 

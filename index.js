@@ -3,7 +3,8 @@ const grid = document.querySelector('.grid')
 const scoreDisplay = document.getElementById('score')
 let squares = []
 let score = 0
-
+let pacDots = 0
+let powerPellets = 0
 
 // 0 - pac-dots
 // 1 - wall
@@ -23,12 +24,12 @@ const layout = [
     1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1,
     1,1,1,1,1,1,0,1,1,4,4,4,4,4,4,4,4,4,4,1,1,0,1,1,1,1,1,1,
     1,1,1,1,1,1,0,1,1,4,1,1,1,2,2,1,1,1,4,1,1,0,1,1,1,1,1,1,
-    1,1,1,1,1,1,0,1,1,4,1,2,2,2,2,2,2,1,4,1,1,0,1,1,1,1,1,1,
-    4,4,4,4,4,4,0,0,0,4,1,2,2,2,2,2,2,1,4,0,0,0,4,4,4,4,4,4,
-    1,1,1,1,1,1,0,1,1,4,1,2,2,2,2,2,2,1,4,1,1,0,1,1,1,1,1,1,
+    1,1,1,1,1,1,0,1,1,4,1,1,2,2,2,2,1,1,4,1,1,0,1,1,1,1,1,1,
+    4,4,4,4,4,4,0,0,0,4,1,1,2,2,2,2,1,1,4,0,0,0,4,4,4,4,4,4,
     1,1,1,1,1,1,0,1,1,4,1,1,1,1,1,1,1,1,4,1,1,0,1,1,1,1,1,1,
-    1,1,1,1,1,1,0,1,1,4,1,1,1,1,1,1,1,1,4,1,1,0,1,1,1,1,1,1,
-    1,0,0,0,0,0,0,0,0,4,4,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,1,
+    1,1,1,1,1,1,0,1,1,4,4,4,4,4,4,4,4,4,4,1,1,0,1,1,1,1,1,1,
+    1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,
+    1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,
     1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,
     1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1,
     1,3,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,3,1,
@@ -55,21 +56,24 @@ function createBoard() {
 
     if(layout[i] === 0) {
       squares[i].classList.add('pac-dot')
+      pacDots++
     } else if(layout[i] === 1) {
       squares[i].classList.add('wall')
     }  else if(layout[i] === 2) {
       squares[i].classList.add('ghost-lair')
     } else if(layout[i] === 3) {
       squares[i].classList.add('power-pellet')
+      powerPellets++
     }
   }
 }
 createBoard()
-
+console.log(pacDots, powerPellets)
 //Pacman starting position
-let pacmanCurrentIndex =  490
+let pacmanCurrentIndex =  434
 
 squares[pacmanCurrentIndex].classList.add('pacman')
+scoreDisplay.innerHTML = score
 
 function control(e) {
   squares[pacmanCurrentIndex].classList.remove('pacman')
@@ -125,8 +129,9 @@ function control(e) {
 }
 document.addEventListener('keyup', control)
 
-
+//function keeps track of the pacdots eatin by the Pac-Man
 function pacDotEaten() {
+    //Check if that index holds a class of pac-dot, if so add to score
     if(squares[pacmanCurrentIndex].classList.contains('pac-dot')) {
       squares[pacmanCurrentIndex].classList.remove('pac-dot')
       score++
@@ -150,10 +155,12 @@ function powerPelletsEaten() {
 }
 
 function unScareGhosts() {
+  //When the time runs out for scared ghosts, switch the class back to unScared
   ghosts.forEach(ghost => ghost.isScared = false)
 }
 
 function getCoordinates (index) {
+  //looking for the current coordinates of 
   return [index % width, Math.floor(index / width)]
 }
 
@@ -285,7 +292,8 @@ function checkForGameOver() {
 
 //checking for a win
 function checkForWin() {
-  if(score === 100) {
+  let finalCount = pacDots + powerPellets
+  if(score === finalCount) {
     //stop each ghost moving
     ghosts.forEach(ghost => clearInterval(ghost.timerId))
     //remove eventListener for the control function
